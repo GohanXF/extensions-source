@@ -59,25 +59,26 @@ class HentaiRox(
 
     /* Details */
     override fun Element.getInfo(tag: String): String {
-        val prefix = when {
-            tag.contains("Tags", true) -> "tag"
-            tag.contains("Artist", true) -> "artist"
-            tag.contains("Language", true) -> "language"
+        val prefix = when (tag.lowercase()) {
+            "tags" -> "tag"
+            "artist", "artists" -> "artist"
+            "language", "languages" -> "language"
+            "category", "categories" -> "category"
+            "parody", "parodies" -> "parody"
             else -> return ""
         }
 
-        return select("a.tag[href^=\"/$prefix/\"]")
+        return select("li:has(.tags_text:matchesOwn(^$tag:?)) a.tag[href^=\"/$prefix/\"]")
             .mapNotNull { el ->
                 val name = el.selectFirst(".item_name")?.text()?.trim() ?: return@mapNotNull null
 
-                // Save tag slugs if needed (only for 'tag' entries, not artist/language)
                 if (prefix == "tag") {
                     genres[name] = el.attr("href").removePrefix("/$prefix/").removeSuffix("/")
                 }
 
-                name
+            name
             }
-            .joinToString()
+        .joinToString()
     }
 
     override fun Element.getCover() =
