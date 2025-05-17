@@ -76,9 +76,9 @@ class HentaiRox(
                     genres[name] = el.attr("href").removePrefix("/$prefix/").removeSuffix("/")
                 }
 
-            name
+                name
             }
-        .joinToString()
+            .joinToString()
     }
 
     override fun Element.getCover() =
