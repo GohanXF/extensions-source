@@ -1,4 +1,4 @@
-package eu.kanade.tachiyomi.extension.all.hentaifox
+package eu.kanade.tachiyomi.extension.all.hentairox
 
 import eu.kanade.tachiyomi.multisrc.galleryadults.GalleryAdults
 import eu.kanade.tachiyomi.source.Source
